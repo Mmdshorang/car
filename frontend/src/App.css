@@ -1,0 +1,500 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f4f7fb;
+  color: #1f2937;
+}
+
+.app-container {
+  min-height: 100vh;
+  font-family: inherit;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: #0f172a;
+  box-shadow: 0 2px 14px rgba(15, 23, 42, 0.16);
+}
+
+.navbar a,
+.navbar button,
+.primary-link,
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar a,
+.navbar button {
+  color: #fff;
+  background: transparent;
+}
+
+.navbar a:hover,
+.navbar button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.page {
+  width: min(1400px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 48px;
+}
+
+.page-header,
+.section-header,
+.toolbar,
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-header {
+  margin-bottom: 22px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 6px;
+  font-size: 28px;
+}
+
+h2 {
+  margin-bottom: 16px;
+  font-size: 19px;
+}
+
+p {
+  color: #64748b;
+}
+
+.primary-link,
+button[type="submit"] {
+  color: #fff;
+  background: #0f766e;
+}
+
+.primary-link:hover,
+button[type="submit"]:hover {
+  background: #115e59;
+}
+
+.secondary-button {
+  color: #0f172a;
+  background: #e2e8f0;
+}
+
+.secondary-button:hover {
+  background: #cbd5e1;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.login-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.login-card,
+.form-panel,
+.list-panel {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+}
+
+.login-card {
+  width: min(420px, 100%);
+  padding: 28px;
+}
+
+.login-card label,
+.field {
+  display: grid;
+  gap: 8px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.login-card label {
+  margin-bottom: 16px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #0f172a;
+  background: #fff;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #0f766e;
+  outline: 2px solid #ccfbf1;
+}
+
+.form-panel {
+  display: grid;
+  gap: 24px;
+  padding: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.inline-add {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.inline-add button {
+  color: #0f766e;
+  background: #ccfbf1;
+  white-space: nowrap;
+}
+
+.inline-add button:hover {
+  background: #99f6e4;
+}
+
+.date-picker-field {
+  width: 100%;
+}
+
+.jalali-date-picker {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.jalali-date-picker__control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jalali-date-picker__input-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.jalali-date-picker__input {
+  padding-left: 38px;
+}
+
+.jalali-date-picker__icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  color: #64748b;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.jalali-date-picker__icon svg,
+.jalali-date-picker__clear svg,
+.jalali-date-picker__nav svg {
+  width: 18px;
+  height: 18px;
+}
+
+.jalali-date-picker__clear,
+.jalali-date-picker__nav {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0;
+  color: #475569;
+  background: #fff;
+}
+
+.jalali-date-picker__clear:hover,
+.jalali-date-picker__nav:hover {
+  background: #f1f5f9;
+}
+
+.jalali-date-picker__popup {
+  z-index: 50;
+  width: 310px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.18);
+}
+
+.jalali-date-picker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.jalali-date-picker__title {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.jalali-date-picker__weekdays,
+.jalali-date-picker__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.jalali-date-picker__weekdays {
+  margin-bottom: 6px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.jalali-date-picker__day {
+  display: grid;
+  height: 34px;
+  place-items: center;
+  border-radius: 999px;
+  padding: 0;
+  color: #334155;
+  background: transparent;
+}
+
+.jalali-date-picker__day:hover {
+  background: #ccfbf1;
+}
+
+.jalali-date-picker__day.is-empty {
+  visibility: hidden;
+}
+
+.jalali-date-picker__day.is-disabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.jalali-date-picker__day.is-today {
+  outline: 2px solid #99f6e4;
+}
+
+.jalali-date-picker__day.is-selected {
+  color: #fff;
+  background: #0f766e;
+}
+
+.jalali-date-picker__footer {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.jalali-date-picker__today {
+  padding: 6px 10px;
+  color: #0f766e;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.settings-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+}
+
+.settings-card label {
+  display: grid;
+  gap: 8px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.settings-meta {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.form-error,
+.form-message {
+  margin: 0;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.form-error {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.form-message {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.stat-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+}
+
+.stat-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: #64748b;
+}
+
+.stat-card strong {
+  color: #0f766e;
+  font-size: 32px;
+}
+
+.list-panel {
+  padding: 20px;
+}
+
+.users-list-panel {
+  margin-top: 22px;
+}
+
+.toolbar {
+  margin-bottom: 16px;
+}
+
+.toolbar input {
+  max-width: 520px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.data-table {
+  width: 100%;
+  min-width: 2200px;
+  border-collapse: collapse;
+}
+
+.data-table.compact {
+  min-width: 900px;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 11px 12px;
+  text-align: right;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.data-table th {
+  position: sticky;
+  top: 0;
+  color: #0f172a;
+  background: #f8fafc;
+  font-weight: 800;
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.section-header {
+  margin-bottom: 12px;
+}
+
+.section-header a {
+  color: #0f766e;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .navbar,
+  .page-header,
+  .section-header,
+  .toolbar,
+  .form-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .form-grid,
+  .stats-grid,
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar {
+    position: static;
+  }
+}
