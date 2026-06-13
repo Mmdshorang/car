@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: car_system_postgres
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME:-car_system}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-your_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-car_system}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build:
+      context: ./backend
+    container_name: car_system_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-your_password}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-car_system}
+      DB_MAINTENANCE_DB: postgres
+      JWT_SECRET: ${JWT_SECRET:-change_me}
+      KAVENEGAR_API_KEY: ${KAVENEGAR_API_KEY:-}
+      KAVENEGAR_TEMPLATE: ${KAVENEGAR_TEMPLATE:-}
+      KAVENEGAR_TYPE: ${KAVENEGAR_TYPE:-sms}
+      KAVENEGAR_SENDER: ${KAVENEGAR_SENDER:-}
+      KAVENEGAR_DATE_REMINDER_TEMPLATE: ${KAVENEGAR_DATE_REMINDER_TEMPLATE:-}
+      KAVENEGAR_DATE_REMINDER_MODE: ${KAVENEGAR_DATE_REMINDER_MODE:-lookup}
+      SMS_DATE_REMINDER_ENABLED_DEFAULT: ${SMS_DATE_REMINDER_ENABLED_DEFAULT:-false}
+      SMS_DATE_REMINDER_DAYS_BEFORE: ${SMS_DATE_REMINDER_DAYS_BEFORE:-5}
+      SMS_DATE_REMINDER_CRON: ${SMS_DATE_REMINDER_CRON:-0 9 * * *}
+      SMS_CRON_TZ: ${SMS_CRON_TZ:-Asia/Tehran}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_BASE_URL: /api
+    container_name: car_system_frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:
