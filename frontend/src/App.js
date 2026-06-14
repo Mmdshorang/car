@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import "./App.css";
 
@@ -36,6 +36,13 @@ function App() {
     localStorage.removeItem("user");
     setToken(null);
   };
+
+  useEffect(() => {
+    const handleInvalidAuth = () => setToken(null);
+
+    window.addEventListener("auth:invalid", handleInvalidAuth);
+    return () => window.removeEventListener("auth:invalid", handleInvalidAuth);
+  }, []);
 
   return (
     <BrowserRouter>

@@ -1,11 +1,20 @@
 import React from "react";
-import Select from "react-select";
+import Select, { components } from "react-select";
+import { Search } from "lucide-react";
+
+function DropdownIndicator(props) {
+  return (
+    <components.DropdownIndicator {...props}>
+      <Search size={18} strokeWidth={2.4} />
+    </components.DropdownIndicator>
+  );
+}
 
 export default function SearchableSelect({
   value,
   onChange,
   options,
-  placeholder = "انتخاب کنید",
+  placeholder = "جستجو کنید یا انتخاب کنید",
   isClearable = true,
   isDisabled = false,
   noOptionsMessage = "نتیجه ای یافت نشد",
@@ -18,7 +27,10 @@ export default function SearchableSelect({
       placeholder={placeholder}
       isClearable={isClearable}
       isSearchable
+      isRtl
       isDisabled={isDisabled}
+      openMenuOnFocus
+      components={{ DropdownIndicator }}
       noOptionsMessage={() => noOptionsMessage}
       classNamePrefix="rs"
       styles={{
@@ -31,6 +43,16 @@ export default function SearchableSelect({
           '&:hover': { borderColor: "#0f766e" },
           direction: "rtl",
         }),
+        input: (base) => ({
+          ...base,
+          color: "#0f172a",
+        }),
+        dropdownIndicator: (base, state) => ({
+          ...base,
+          color: state.isFocused ? "#0f766e" : "#64748b",
+          paddingInline: 10,
+        }),
+        clearIndicator: (base) => ({ ...base, color: "#64748b" }),
         menu: (base) => ({ ...base, zIndex: 40, direction: "rtl" }),
         menuPortal: (base) => ({ ...base, zIndex: 9999 }),
         placeholder: (base) => ({ ...base, color: "#94a3b8" }),

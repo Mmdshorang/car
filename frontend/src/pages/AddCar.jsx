@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import JalaliDatePicker from "../components/DatePicker";
+import SearchableSelect from "../components/SearchableSelect";
 
 const lookupFields = [
   { name: "vehicle_name_id", label: "نام خودرو", table: "vehicle_names", required: true },
@@ -59,18 +60,12 @@ function AddableSelect({ field, value, options, onChange, onAdd }) {
   return (
     <label className="field">
       <span>{field.label}</span>
-      <select
+      <SearchableSelect
         value={value}
-        onChange={(event) => onChange(field.name, event.target.value)}
-        required={field.required}
-      >
-        <option value="">انتخاب کنید</option>
-        {options.map((item) => (
-          <option key={item.id} value={item.id}>
-            {item.name}
-          </option>
-        ))}
-      </select>
+        onChange={(selectedValue) => onChange(field.name, selectedValue)}
+        options={options.map((item) => ({ value: item.id, label: item.name }))}
+        placeholder={`جستجو یا انتخاب ${field.label}`}
+      />
       <div className="inline-add">
         <input
           value={newName}
@@ -134,6 +129,12 @@ export default function AddCar() {
     setMessage("");
 
     try {
+      const missingRequiredField = lookupFields.find((field) => field.required && !form[field.name]);
+      if (missingRequiredField) {
+        setMessage(`${missingRequiredField.label} الزامی است`);
+        return;
+      }
+
       await api.post("/cars", form);
       setMessage("خودرو با موفقیت ثبت شد");
       setForm(initialForm);
